@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - main
-      - feature/*
+      - feature/**
   pull_request:
+    branches:
+      - main
 
 jobs:
   terraform:
@@ -14,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: enviroment/dev
+        working-directory: environment/dev
 
     steps:
       - name: Checkout Code
@@ -33,9 +35,9 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan
 
-      # ✅ Apply only on main branch
+      # ✅ Only main branch will apply
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve
