@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: enviroment/dev
+        working-directory: environment/dev
 
     steps:
       - name: Checkout Code
