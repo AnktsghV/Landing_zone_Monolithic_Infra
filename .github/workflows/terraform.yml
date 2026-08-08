@@ -14,6 +14,10 @@ jobs:
     name: Terraform Pipeline
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: enviroment/dev
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -22,32 +26,17 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        run: |
-          DIR=$(find . -type d \( -name "dev" \))
-          cd "$DIR"
-          terraform init
+        run: terraform init
 
       - name: Terraform Format Check
-        run: |
-          DIR=$(find . -type d \( -name "dev" \))
-          cd "$DIR"
-          terraform fmt -check
+        run: terraform fmt -check
 
       - name: Terraform Validate
-        run: |
-          DIR=$(find . -type d \( -name "dev" \))
-          cd "$DIR"
-          terraform validate
+        run: terraform validate
 
       - name: Terraform Plan
-        run: |
-          DIR=$(find . -type d \( -name "dev" \))
-          cd "$DIR"
-          terraform plan
+        run: terraform plan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: |
-          DIR=$(find . -type d \( -name "dev" \))
-          cd "$DIR"
-          terraform apply -auto-approve
+        run: terraform apply -auto-approve
