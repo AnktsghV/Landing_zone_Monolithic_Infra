@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: .
+        working-directory: enviroment/dev
 
     steps:
       - name: Checkout Code
@@ -37,7 +37,7 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      # ✅ Only main branch will apply
+      # Only main branch will apply
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
