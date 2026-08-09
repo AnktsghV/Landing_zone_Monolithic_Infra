@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - feacture/**
+      - feature/**
   pull_request:
     branches:
       - main
@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: enviroment/dev
+        working-directory: env/dev
 
     steps:
       - name: Checkout Code
@@ -37,6 +37,3 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
